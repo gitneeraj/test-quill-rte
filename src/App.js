@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef } from "react";
+import Editor from "./Editor";
 
-function App() {
+/** 
+ * Example: 
+ * const Delta = Quill.import('delta');
+ * const defaultValue = new Delta()
+          .insert('Hello')
+          .insert('\n', { header: 1 })
+          .insert('Some ')
+          .insert('initial', { bold: true })
+          .insert(' ')
+          .insert('content', { underline: true })
+          .insert('\n');
+
+    <RickText
+      isReadOnly
+      defaultValue={defaultValue}
+      onChange={(content, editor) => {}}
+    />
+*/
+const App = ({
+  isReadOnly = false,
+  defaultValue,
+  onChange = () => {},
+  ...props
+}) => {
+  const editorRef = useRef();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Editor
+        ref={editorRef}
+        readOnly={isReadOnly}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        {...props}
+      />
     </div>
   );
-}
+};
 
 export default App;
